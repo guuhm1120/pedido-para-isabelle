@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Pedido Especial para Isabelle</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+font-family: Arial, sans-serif;
+text-align:center;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background: linear-gradient(135deg,#ff6a88,#ff99ac);
+overflow:hidden;
+color:white;
+}
+
+h1{
+max-width:700px;
+text-shadow:2px 2px 5px rgba(0,0,0,0.3);
+}
+
+#contador{
+margin-top:10px;
+font-size:18px;
+opacity:0.9;
+}
+
+.botoes{
+margin-top:30px;
+}
+
+button{
+padding:15px 30px;
+font-size:20px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+margin:10px;
+}
+
+#sim{
+background:#2ecc71;
+color:white;
+transition:0.3s;
+}
+
+#sim:hover{
+transform:scale(1.15);
+}
+
+#nao{
+background:#e74c3c;
+color:white;
+position:absolute;
+}
+
+#mensagem{
+font-size:30px;
+font-weight:bold;
+margin-top:20px;
+display:none;
+}
+
+.heart{
+position:absolute;
+font-size:20px;
+animation: subir linear infinite;
+}
+
+@keyframes subir{
+0%{transform:translateY(100vh); opacity:1;}
+100%{transform:translateY(-10vh); opacity:0;}
+}
+
+.confete{
+position:absolute;
+width:10px;
+height:10px;
+animation:cair 3s linear forwards;
+}
+
+@keyframes cair{
+to{
+transform:translateY(100vh) rotate(720deg);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>
+Isabelle, aceita ser feliz para sempre ao meu lado  
+ nunca soltar a minha mão, assim como eu nunca soltarei a sua? ❤️
+</h1>
+
+<div id="contador"></div>
+
+<div class="botoes">
+<button id="sim">Sim 💖</button>
+<button id="nao">Não 😢</button>
+</div>
+
+<div id="mensagem">
+🎉 Parabéns Isabelle! Você escolheu certo! ❤️
+</div>
+
+<audio id="musica" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8a0c1e0f1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const nao = document.getElementById("nao");
+const sim = document.getElementById("sim");
+const mensagem = document.getElementById("mensagem");
+const musica = document.getElementById("musica");
+const contador = document.getElementById("contador");
+
+function fugir(){
+
+const largura = window.innerWidth - nao.offsetWidth;
+const altura = window.innerHeight - nao.offsetHeight;
+
+const x = Math.random()*largura;
+const y = Math.random()*altura;
+
+nao.style.left = x+"px";
+nao.style.top = y+"px";
+
+}
+
+nao.addEventListener("mouseover", fugir);
+nao.addEventListener("touchstart", fugir);
+
+sim.addEventListener("click", ()=>{
+
+mensagem.style.display="block";
+musica.play();
+
+for(let i=0;i<150;i++){
+
+const confete = document.createElement("div");
+confete.classList.add("confete");
+
+confete.style.left=Math.random()*100+"vw";
+confete.style.background=`hsl(${Math.random()*360},100%,50%)`;
+
+document.body.appendChild(confete);
+
+setTimeout(()=>confete.remove(),3000);
+}
+
+});
+
+function criarCoracao(){
+
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+heart.style.animationDuration=(4+Math.random()*4)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),7000);
+
+}
+
+setInterval(criarCoracao,400);
+
+const inicio = new Date("2024-01-01");
+
+function atualizarContador(){
+
+const agora = new Date();
+const diff = agora - inicio;
+
+const dias = Math.floor(diff/(1000*60*60*24));
+const horas = Math.floor(diff/(1000*60*60)%24);
+const minutos = Math.floor(diff/(1000*60)%60);
+const segundos = Math.floor(diff/1000%60);
+
+contador.innerHTML = 
+"Meu amor por você já dura: "+19+" dias "+horas+"h "+minutos+"m "+segundos+"s ❤️";
+
+}
+
+setInterval(atualizarContador,1000);
+
+</script>
+
+</body>
+</html>
